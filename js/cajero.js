@@ -6,10 +6,10 @@ let usuarioSesion = JSON.parse(localStorage.getItem("sesion"));
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
-    
+
     //logout();
-    login("Gera", 123)
-    
+    //login("Gera", 123)
+
     if (sesionActiva()) {
         logged.textContent = `Usuario ${usuarioSesion.nombre}`;
         saldoFinal.textContent = `$ ${usuarioSesion.saldo}.00`;
@@ -25,6 +25,16 @@ boton.addEventListener("click", (e) => {
         let inputCantidad = document.getElementById("cantidad").value;
         let idUsuario = JSON.parse(localStorage.getItem("sesion")).id;
 
+        if (Number(inputCantidad) < 0) {
+            alert("No se pueden agregar cantidades negativas.")
+            return;
+        }
+
+        if (!Number(inputCantidad)) {
+            alert("Favor de ingresar una cantidad valida.")
+            return;
+        };
+
         switch (Number(accion)) {
             //retirar dinero
             case 1:
@@ -32,7 +42,7 @@ boton.addEventListener("click", (e) => {
                 document.getElementById("cantidad").value = "";
                 break;
 
-            //agregar dinero
+                //agregar dinero
             case 2:
                 agregarDinero(idUsuario, Number(inputCantidad));
                 document.getElementById("cantidad").value = "";
@@ -98,11 +108,6 @@ function agregarDinero(idCliente, cantidad) {
 
             sueldoActualAux = cuenta.saldo + cantidad;
 
-            if (!Number(sueldoActualAux)) {
-                alert("Favor de ingresar una cantidad valida.")
-                return;
-            };
-
             if (validarMonto(sueldoActualAux)) {
 
                 nuevoSaldo = cuenta.saldo;
@@ -139,11 +144,6 @@ function retirarDinero(idCliente, cantidad) {
         if (cuenta.id === idCliente) {
 
             sueldoActualAux = cuenta.saldo - cantidad;
-
-            if (!Number(sueldoActualAux)) {
-                alert("Favor de ingresar una cantidad valida.")
-                return;
-            };
 
             if (validarMonto(sueldoActualAux)) {
 
