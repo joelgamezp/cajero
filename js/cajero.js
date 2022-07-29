@@ -5,13 +5,12 @@ let logged = document.getElementById("usuario");
 let usuarioSesion = JSON.parse(localStorage.getItem("sesion"));
 
 
-
 window.addEventListener('DOMContentLoaded', (event) => {
     
+    //logout();
     //login("Gera", 123)
     
     if (sesionActiva()) {
-
         logged.textContent = `Usuario ${usuarioSesion.nombre}`;
         saldoFinal.textContent = `$ ${usuarioSesion.saldo}.00`;
     }
@@ -26,22 +25,24 @@ boton.addEventListener("click", (e) => {
         let inputCantidad = document.getElementById("cantidad").value;
         let idUsuario = JSON.parse(localStorage.getItem("sesion")).id;
 
-
-
         switch (Number(accion)) {
+            //retirar dinero
             case 1:
                 retirarDinero(idUsuario, Number(inputCantidad));
+                document.getElementById("cantidad").value = "";
                 break;
 
+            //agregar dinero
             case 2:
                 agregarDinero(idUsuario, Number(inputCantidad));
+                document.getElementById("cantidad").value = "";
                 break;
 
             default:
                 break;
         }
     } else {
-        alert("Debe iniciar sesion para manejar la cuenta");
+        alert("Debe iniciar sesion para manejar la cuenta.");
     }
 });
 
@@ -52,18 +53,22 @@ function login(nombre, pass) {
 
     for (const usuario of data) {
         if (usuario.nombre === nombre && usuario.contrasena === pass) {
-            //obtener las etiquetas del html y setear nombre y valores de la cuenta
 
             localStorage.setItem("sesion", JSON.stringify(usuario));
             usuarioLogged = usuario;
             break;
         }
     }
+
+    if (usuarioLogged === undefined) {
+        alert("Usuario no encontrado.")
+        return;
+    }
+
 }
 
 function logout() {
-    localStorage.setItem("sesion", "");
-    //cambiar las etiquetas en el html a default por haber cerrado sesion
+    localStorage.removeItem("sesion");
 }
 
 function sesionActiva() {
@@ -99,11 +104,10 @@ function agregarDinero(idCliente, cantidad) {
             };
 
             if (validarMonto(sueldoActualAux)) {
-                //obtener el elemento del html y setearle el mensaje en pantalla
 
                 nuevoSaldo = cuenta.saldo;
 
-                alert("se excede el monto maximo de la cuenta.")
+                alert("Se excede el monto maximo de la cuenta de $990.")
 
                 break;
             } else {
@@ -142,11 +146,10 @@ function retirarDinero(idCliente, cantidad) {
             };
 
             if (validarMonto(sueldoActualAux)) {
-                //obtener el elemento del html y setearle el mensaje en pantalla
 
                 nuevoSaldo = cuenta.saldo;
 
-                alert("se excede el monto minimo de la cuenta.")
+                alert("No puede tener en su cuenta menos de $10.")
 
                 break;
             } else {
@@ -188,13 +191,11 @@ function actualizarData(data) {
 }
 
 function validarMonto(monto) {
-
     if (monto > 990 || monto < 10) {
         return true;
     }
     return false;
 }
-
 
 
 //console.log(agregarDinero(1, 20));

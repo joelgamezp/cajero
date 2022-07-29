@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Cajero</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -13,34 +13,37 @@
 
 <body>
     <header>
-
     </header>
     <main>
         <br>
         <div class="container">
-            <div class="jumbotron">
+            <div class="jumbotron" style="background:#6495ED">
                 <div class="row align-items-center">
-                    <div class="text-right">
+                    <div class="text-left">
+                        <div class="text-center">
+                            <h2>Cajero Automático</h2>
+                            <hr>
+                        </div>
                         <p id="usuario"></p>
-                        <h5 id="saldo"></h5>
+                        <h5 class="text-success" id="saldo"></h5>
                     </div>
                     <div class="row">
-                        <h2>Ingrese cantidad:</h2>
+                        <h3>Ingrese cantidad:</h3>
                     </div>
                     <div class="row">
                         <form action="">
                             <input type="text" class="form-control" id="cantidad" placeholder="cantidad">
 
+                            <br>
                             <input class="form-check-input" type="radio" name="accion" checked value="1">
                             <label class="form-check-label">Retirar</label>
 
                             <input class="form-check-input" type="radio" name="accion" value="2">
                             <label class="form-check-label">Agregar</label>
+                            <hr>
+                            <button type="button" class="btn btn-success" id="enviar">Enviar</button>
                             <br>
-                            <button type="button" class="btn btn-primary" id="enviar">Enviar</button>
-                            <br>
-                            <br>
-                            <h4 id="cantidadIngresada">Cantidad ingresada</h4>
+                            <h4 id="cantidadIngresada"></h4>
                         </form>
                     </div>
                 </div>
