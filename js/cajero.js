@@ -8,7 +8,7 @@ let usuarioSesion = JSON.parse(localStorage.getItem("sesion"));
 window.addEventListener('DOMContentLoaded', (event) => {
     
     //logout();
-    //login("Gera", 123)
+    login("Gera", 123)
     
     if (sesionActiva()) {
         logged.textContent = `Usuario ${usuarioSesion.nombre}`;
