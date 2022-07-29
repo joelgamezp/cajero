@@ -3,7 +3,7 @@ let boton = document.getElementById("enviar");
 let saldoFinal = document.getElementById("saldo");
 let logged = document.getElementById("usuario");
 let usuarioSesion = JSON.parse(localStorage.getItem("sesion"));
-
+let mensaje = document.getElementById("mensajes");
 
 window.addEventListener('DOMContentLoaded', (event) => {
 
@@ -26,12 +26,12 @@ boton.addEventListener("click", (e) => {
         let idUsuario = JSON.parse(localStorage.getItem("sesion")).id;
 
         if (Number(inputCantidad) < 0) {
-            alert("No se pueden agregar cantidades negativas.")
+            mostrarMensaje("No se pueden agregar cantidades negativas.")
             return;
         }
 
         if (!Number(inputCantidad)) {
-            alert("Favor de ingresar una cantidad valida.")
+            mostrarMensaje("Favor de ingresar una cantidad valida.")
             return;
         };
 
@@ -52,7 +52,7 @@ boton.addEventListener("click", (e) => {
                 break;
         }
     } else {
-        alert("Debe iniciar sesion para manejar la cuenta.");
+        mostrarMensaje("Debe iniciar sesion para manejar la cuenta.");
     }
 });
 
@@ -71,10 +71,9 @@ function login(nombre, pass) {
     }
 
     if (usuarioLogged === undefined) {
-        alert("Usuario no encontrado.")
+        mostrarMensaje("Usuario no encontrado.")
         return;
     }
-
 }
 
 function logout() {
@@ -112,7 +111,7 @@ function agregarDinero(idCliente, cantidad) {
 
                 nuevoSaldo = cuenta.saldo;
 
-                alert("Se excede el monto maximo de la cuenta de $990.")
+                mostrarMensaje("Se excede el monto maximo de la cuenta de $990.")
 
                 break;
             } else {
@@ -124,6 +123,8 @@ function agregarDinero(idCliente, cantidad) {
                 usuarioSesion.saldo = nuevoSaldo;
 
                 saldoFinal.textContent = `$ ${nuevoSaldo}.00`;
+
+                mostrarMensaje(`Se agregaron $${cantidad} a su cuenta.`)
 
                 break;
             }
@@ -149,7 +150,7 @@ function retirarDinero(idCliente, cantidad) {
 
                 nuevoSaldo = cuenta.saldo;
 
-                alert("No puede tener en su cuenta menos de $10.")
+                mostrarMensaje("No puede tener en su cuenta menos de $10.")
 
                 break;
             } else {
@@ -161,6 +162,8 @@ function retirarDinero(idCliente, cantidad) {
                 usuarioSesion.saldo = nuevoSaldo;
 
                 saldoFinal.textContent = `$ ${nuevoSaldo}.00`;
+
+                mostrarMensaje(`Se restaron $${cantidad} de su cuenta.`)
 
                 break;
             }
@@ -195,6 +198,15 @@ function validarMonto(monto) {
         return true;
     }
     return false;
+}
+
+function mostrarMensaje(mensajeMostrar) {
+    mensaje.textContent = mensajeMostrar;
+
+    /*setInterval(function () {
+        mensaje.textContent = ""
+    }, 3500);
+    */
 }
 
 
